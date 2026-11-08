@@ -96,6 +96,7 @@ scp -P <port> root@<ip>:/workspace/.../train.log ./
 - Record-track entry not yet attempted — SOTA 0.8265 BPB on 10-min track needs further hypothesis runs (Plan A: SP1024+SLOT-48+L-BFGS+TTT stack, expected 0.20-0.24 BPB)
 
 ## Critical rules for AI agents
+- **New records never copy `train_gpt.py`** (2026-11-08): start from `records/_template/` and import `shared.train_core`; historical entries are frozen by `shared/check_records.py`. Run `python3 shared/check_records.py` before committing a record.
 - **ALWAYS pass `allow_patterns` to `snapshot_download`** — 2026-04-17 lost $3 because the 20GB container disk filled when `allow_patterns` was missing (sp1024 + full repo pulled alongside sp8192)
 - **Minimum 50GB container disk** on every RunPod pod — smaller will OOM the disk on dataset download
 - **10-minute wall-clock is hard** — L-BFGS SLOT and full N-gram Cache hypotheses were rejected because eval timed out (+250s) or artifact overflowed (+1.25MB). Verify size/time at compatibility-critique stage BEFORE spending compute
